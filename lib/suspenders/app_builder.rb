@@ -100,20 +100,6 @@ module Suspenders
       )
     end
 
-    def setup_staging_environment
-      staging_file = 'config/environments/staging.rb'
-      copy_file 'staging.rb', staging_file
-
-      config = <<-RUBY
-
-Rails.application.configure do
-  # ...
-end
-      RUBY
-
-      append_file staging_file, config
-    end
-
     def setup_secret_token
       template 'secrets.yml', 'config/secrets.yml', force: true
     end
@@ -162,7 +148,7 @@ end
       inject_into_file(
         "Gemfile",
         %{\n\s\sgem "rails_stdout_logging"},
-        after: /group :staging, :production do/
+        after: /group :production do/
       )
     end
 
@@ -225,7 +211,6 @@ end
     def configure_action_mailer
       action_mailer_host "development", %{"localhost:#{port}"}
       action_mailer_host "test", %{"www.example.com"}
-      action_mailer_host "staging", %{ENV.fetch("HOST")}
       action_mailer_host "production", %{ENV.fetch("HOST")}
     end
 
@@ -286,9 +271,7 @@ end
     end
 
     def create_heroku_apps(flags)
-      rack_env = "RACK_ENV=staging RAILS_ENV=staging"
       rails_serve_static_files = "RAILS_SERVE_STATIC_FILES=true"
-      staging_config = "#{rack_env} #{rails_serve_static_files}"
       run_heroku "create #{app_name}-production #{flags}", "production"
       run_heroku "create #{app_name}-staging #{flags}", "staging"
       run_heroku "config:add #{staging_config}", "staging"

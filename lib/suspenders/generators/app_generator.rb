@@ -31,7 +31,6 @@ module Suspenders
       invoke :setup_development_environment
       invoke :setup_test_environment
       invoke :setup_production_environment
-      invoke :setup_staging_environment
       invoke :setup_secret_token
       invoke :create_suspenders_views
       invoke :configure_app
@@ -101,11 +100,6 @@ module Suspenders
       build :configure_smtp
       build :enable_rack_deflater
       build :setup_asset_host
-    end
-
-    def setup_staging_environment
-      say 'Setting up the staging environment'
-      build :setup_staging_environment
     end
 
     def setup_secret_token
