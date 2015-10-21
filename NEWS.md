@@ -1,3 +1,7 @@
+Unreleased on master:
+
+* Remove i18n-tasks
+
 1.32.0 (October 9, 2015)
 
 * Install Foreman automatically during setup script
