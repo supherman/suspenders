@@ -53,6 +53,7 @@ module Suspenders
       invoke :setup_segment
       invoke :setup_bundler_audit
       invoke :setup_spring
+      invoke :generate_all
       invoke :outro
     end
 
@@ -235,6 +236,10 @@ module Suspenders
 
     def remove_routes_comment_lines
       build :remove_routes_comment_lines
+    end
+
+    def generate_all
+      generate("suspenders:static")
     end
 
     def outro
