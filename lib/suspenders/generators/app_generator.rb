@@ -24,6 +24,9 @@ module Suspenders
     class_option :skip_bundle, type: :boolean, aliases: "-B", default: true,
       desc: "Don't run bundle install"
 
+    class_option :path, type: :string, default: nil,
+      desc: "Path to the gem"
+
     def finish_template
       invoke :suspenders_customization
       super
@@ -58,7 +61,7 @@ module Suspenders
     end
 
     def customize_gemfile
-      build :replace_gemfile
+      build :replace_gemfile, options[:path]
       build :set_ruby_to_version_being_used
 
       if options[:heroku]

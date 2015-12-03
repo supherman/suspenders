@@ -221,9 +221,15 @@ end
       bundle_command 'exec rake db:create db:migrate'
     end
 
-    def replace_gemfile
+    def replace_gemfile(path)
       remove_file 'Gemfile'
-      template 'Gemfile.erb', 'Gemfile'
+      template 'Gemfile.erb', 'Gemfile' do |content|
+        if path
+          content.gsub(%r{gem .suspenders.}) { |s| %{#{s}, path: "#{path}"} }
+        else
+          content
+        end
+      end
     end
 
     def set_ruby_to_version_being_used
