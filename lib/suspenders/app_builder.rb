@@ -271,16 +271,8 @@ end
       copy_file "config_i18n_tasks.yml", "config/i18n-tasks.yml"
     end
 
-    def configure_background_jobs_for_rspec
-      run 'rails g delayed_job:active_record'
-    end
-
     def configure_action_mailer_in_specs
       copy_file 'action_mailer.rb', 'spec/support/action_mailer.rb'
-    end
-
-    def configure_capybara_webkit
-      copy_file "capybara_webkit.rb", "spec/support/capybara_webkit.rb"
     end
 
     def configure_time_formats
@@ -296,21 +288,10 @@ Rack::Timeout.timeout = (ENV["RACK_TIMEOUT"] || 10).to_i
       append_file "config/environments/production.rb", rack_timeout_config
     end
 
-    def configure_simple_form
-      bundle_command "exec rails generate simple_form:install"
-    end
-
     def configure_action_mailer
       action_mailer_host "development", %{"localhost:3000"}
       action_mailer_host "test", %{"www.example.com"}
       action_mailer_host "production", %{ENV.fetch("APPLICATION_HOST")}
-    end
-
-    def configure_active_job
-      configure_application_file(
-        "config.active_job.queue_adapter = :delayed_job"
-      )
-      configure_environment "test", "config.active_job.queue_adapter = :inline"
     end
 
     def fix_i18n_deprecation_warning
@@ -337,16 +318,6 @@ Rack::Timeout.timeout = (ENV["RACK_TIMEOUT"] || 10).to_i
       remove_file "app/assets/stylesheets/application.css"
       copy_file "application.scss",
                 "app/assets/stylesheets/application.scss"
-    end
-
-    def install_refills
-      run "rails generate refills:import flashes"
-      run "rm app/views/refills/_flashes.html.erb"
-      run "rmdir app/views/refills"
-    end
-
-    def install_bitters
-      run "bitters install --path app/assets/stylesheets"
     end
 
     def gitignore_files

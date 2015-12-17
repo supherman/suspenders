@@ -45,10 +45,6 @@ RSpec.describe "Suspend a new project with default configuration" do
     expect(File).to exist("#{project_path}/spec/support/action_mailer.rb")
   end
 
-  it "configures capybara-webkit" do
-    expect(File).to exist("#{project_path}/spec/support/capybara_webkit.rb")
-  end
-
   it "adds support file for i18n" do
     expect(File).to exist("#{project_path}/spec/support/i18n.rb")
   end
@@ -115,10 +111,6 @@ RSpec.describe "Suspend a new project with default configuration" do
     expect(locales_en_file).to match(/application: #{app_name.humanize}/)
   end
 
-  it "configs simple_form" do
-    expect(File).to exist("#{project_path}/config/initializers/simple_form.rb")
-  end
-
   it "configs :test email delivery method for development" do
     dev_env_file = IO.read("#{project_path}/config/environments/development.rb")
     expect(dev_env_file).
@@ -141,9 +133,6 @@ RSpec.describe "Suspend a new project with default configuration" do
     application_config = IO.read("#{project_path}/config/application.rb")
     test_config = IO.read("#{project_path}/config/environments/test.rb")
 
-    expect(application_config).to match(
-      /^ +config.active_job.queue_adapter = :delayed_job$/
-    )
     expect(test_config).to match(
       /^ +config.active_job.queue_adapter = :inline$/
     )

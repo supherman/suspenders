@@ -28,9 +28,6 @@ It includes application gems like:
 * [Airbrake](https://github.com/airbrake/airbrake) for exception notification
 * [Autoprefixer Rails](https://github.com/ai/autoprefixer-rails) for CSS vendor prefixes
 * [Bourbon](https://github.com/thoughtbot/bourbon) for Sass mixins
-* [Bitters](https://github.com/thoughtbot/bitters) for scaffold application styles
-* [Delayed Job](https://github.com/collectiveidea/delayed_job) for background
-  processing
 * [Flutie](https://github.com/thoughtbot/flutie) for `page_title` and `body_class` view
   helpers
 * [High Voltage](https://github.com/thoughtbot/high_voltage) for static pages
@@ -45,10 +42,6 @@ It includes application gems like:
   taking too long
 * [Recipient Interceptor](https://github.com/croaky/recipient_interceptor) to
   avoid accidentally sending emails to real people from staging
-* [Refills](https://github.com/thoughtbot/refills) for “copy-paste” components
-  and patterns based on Bourbon, Neat and Bitters
-* [Simple Form](https://github.com/plataformatec/simple_form) for form markup
-  and style
 * [Title](https://github.com/calebthompson/title) for storing titles in
   translations
 * [Puma](https://github.com/puma/puma) to serve HTTP requests
@@ -74,8 +67,6 @@ And development gems like:
 And testing gems like:
 
 * [Capybara](https://github.com/jnicklas/capybara) and
-  [Capybara Webkit](https://github.com/thoughtbot/capybara-webkit) for
-  integration testing
 * [Factory Girl](https://github.com/thoughtbot/factory_girl) for test data
 * [Formulaic](https://github.com/thoughtbot/formulaic) for integration testing
   HTML forms
