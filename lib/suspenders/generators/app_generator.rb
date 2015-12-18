@@ -51,6 +51,7 @@ module Suspenders
       invoke :setup_segment
       invoke :setup_bundler_audit
       invoke :setup_spring
+      invoke :setup_haml
       invoke :outro
     end
 
@@ -226,6 +227,11 @@ module Suspenders
     def outro
       say 'Congratulations! You just pulled our suspenders.'
       say "Remember to run 'rails generate airbrake' with your API key."
+    end
+
+    def setup_haml
+      say 'Setting up haml'
+      build :setup_haml
     end
 
     protected

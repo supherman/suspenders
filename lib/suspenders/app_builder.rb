@@ -77,6 +77,10 @@ module Suspenders
       copy_file 'dev.rake', 'lib/tasks/dev.rake'
     end
 
+    def configure_active_job
+      configure_environment "test", "config.active_job.queue_adapter = :inline"
+    end
+
     def configure_generators
       config = <<-RUBY
 
@@ -484,6 +488,10 @@ if defined? RSpec
 end
         EOS
       end
+    end
+
+    def setup_haml
+      run 'echo "y" | bundle exec rake haml:erb2haml'
     end
 
     private

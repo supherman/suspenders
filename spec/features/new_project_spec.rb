@@ -65,9 +65,9 @@ RSpec.describe "Suspend a new project with default configuration" do
 
   it "records pageviews through Segment if ENV variable set" do
     expect(analytics_partial).
-      to include(%{<% if ENV["SEGMENT_KEY"] %>})
+      to include('- if ENV["SEGMENT_KEY"]')
     expect(analytics_partial).
-      to include(%{window.analytics.load("<%= ENV["SEGMENT_KEY"] %>");})
+      to include('window.analytics.load("#{ENV["SEGMENT_KEY"]}")')
   end
 
   it "raises on unpermitted parameters in all environments" do
@@ -124,9 +124,9 @@ RSpec.describe "Suspend a new project with default configuration" do
   end
 
   it "configures language in html element" do
-    layout_path = "/app/views/layouts/application.html.erb"
+    layout_path = "/app/views/layouts/application.html.haml"
     layout_file = IO.read("#{project_path}#{layout_path}")
-    expect(layout_file).to match(/<html lang="en">/)
+    expect(layout_file).to match(/%html{:lang => "en"}/)
   end
 
   it "configs active job queue adapter" do
@@ -182,7 +182,14 @@ RSpec.describe "Suspend a new project with default configuration" do
     expect(File).to exist("#{project_path}/spec/factories.rb")
   end
 
+  it 'converts all default views to haml' do
+    expect(File).to exist("#{project_path}/app/views/application/_analytics.html.haml")
+    expect(File).to exist("#{project_path}/app/views/application/_flashes.html.haml")
+    expect(File).to exist("#{project_path}/app/views/application/_javascript.html.haml")
+    expect(File).to exist("#{project_path}/app/views/layouts/application.html.haml")
+  end
+
   def analytics_partial
-    IO.read("#{project_path}/app/views/application/_analytics.html.erb")
+    IO.read("#{project_path}/app/views/application/_analytics.html.haml")
   end
 end
